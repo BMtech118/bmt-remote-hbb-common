@@ -77,7 +77,7 @@ lazy_static::lazy_static! {
     // BMT Remote: one-time sessions are accepted with a click by the person at
     // the computer, never by password, and the setting can't be changed.
     pub static ref OVERWRITE_SETTINGS: RwLock<HashMap<String, String>> =
-        RwLock::new([("approve-mode".to_owned(), "click".to_owned())].into_iter().collect());
+        RwLock::new(vec![("approve-mode".to_owned(), "click".to_owned())].into_iter().collect());
     pub static ref DEFAULT_DISPLAY_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
     pub static ref OVERWRITE_DISPLAY_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
     pub static ref DEFAULT_LOCAL_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
