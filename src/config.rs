@@ -69,7 +69,12 @@ lazy_static::lazy_static! {
     static ref ONLINE: Mutex<HashMap<String, i64>> = Default::default();
     pub static ref PROD_RENDEZVOUS_SERVER: RwLock<String> = RwLock::new("".to_owned());
     pub static ref EXE_RENDEZVOUS_SERVER: RwLock<String> = Default::default();
-    pub static ref APP_NAME: RwLock<String> = RwLock::new("BMT Remote".to_owned());
+    // Structural name: used for the install folder, Windows service, registry keys,
+    // config dir, exe and log paths. Must match [a-zA-Z0-9-]+ (the elevated installer
+    // rejects anything else), so no space. The customer-visible name is APP_DISPLAY_NAME.
+    pub static ref APP_NAME: RwLock<String> = RwLock::new("BMT-Remote".to_owned());
+    // What the customer sees: window title, connection banner, Add/Remove Programs.
+    pub static ref APP_DISPLAY_NAME: RwLock<String> = RwLock::new("BMT Remote".to_owned());
     static ref KEY_PAIR: Mutex<Option<KeyPair>> = Default::default();
     static ref USER_DEFAULT_CONFIG: RwLock<(UserDefaultConfig, Instant)> = RwLock::new((UserDefaultConfig::load(), Instant::now()));
     pub static ref NEW_STORED_PEER_CONFIG: Mutex<HashSet<String>> = Default::default();
