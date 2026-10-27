@@ -73,11 +73,13 @@ lazy_static::lazy_static! {
     static ref KEY_PAIR: Mutex<Option<KeyPair>> = Default::default();
     static ref USER_DEFAULT_CONFIG: RwLock<(UserDefaultConfig, Instant)> = RwLock::new((UserDefaultConfig::load(), Instant::now()));
     pub static ref NEW_STORED_PEER_CONFIG: Mutex<HashSet<String>> = Default::default();
-    pub static ref DEFAULT_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
-    // BMT Remote: one-time sessions are accepted with a click by the person at
-    // the computer, never by password, and the setting can't be changed.
-    pub static ref OVERWRITE_SETTINGS: RwLock<HashMap<String, String>> =
+    // BMT Remote: connections are accepted with a click by default. A support
+    // session's own download, and an enrolled unattended install, switch to
+    // password so the technician's console connects without a prompt
+    // (bmt_checkin.dart, bmt_enrol.rs), which needs this to be changeable.
+    pub static ref DEFAULT_SETTINGS: RwLock<HashMap<String, String>> =
         RwLock::new(vec![("approve-mode".to_owned(), "click".to_owned())].into_iter().collect());
+    pub static ref OVERWRITE_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
     pub static ref DEFAULT_DISPLAY_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
     pub static ref OVERWRITE_DISPLAY_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
     pub static ref DEFAULT_LOCAL_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
